@@ -8,9 +8,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage{
 
+    private final By newLetter = By.cssSelector(".T-I.J-J5-Ji.T-I-KE.L3");
+    private final By accButton = By.cssSelector(".gb_3a.gbii");
+    private final By logInOtherUser = By.cssSelector(".gb_Fa.gb_Ce.gb_rb");
+    private final By logOffButton = By.cssSelector(".gb_Fa.gb_Fe.gb_Ne.gb_rb");
     private WebDriver driver;
 
-    private final By newLetter = By.cssSelector(".T-I.J-J5-Ji.T-I-KE.L3");
+    public MainPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public MainPage clickNewLetter(){
         WebElement elNewLetter = (new WebDriverWait(driver, 30))
@@ -19,8 +25,25 @@ public class MainPage{
         return this;
     }
 
-    public MainPage(WebDriver driver){
-        this.driver = driver;
+    public MainPage clickNewUser() {
+
+        driver.findElement(accButton).click();
+        driver.findElement(logInOtherUser).click();
+        return this;
+    }
+
+    public MainPage clickLoggOffButton() {
+        driver.findElement(accButton).click();
+        driver.findElement(logOffButton).click();
+        return this;
+    }
+
+    public MainPage findThemeLetter(String text) {
+        By letter = By.xpath("//b[contains(text(),'" + text + "')]");
+        WebElement elLetter = (new WebDriverWait(driver, 30))
+                .until(ExpectedConditions.presenceOfElementLocated(letter));
+        driver.findElement(letter).click();
+        return this;
     }
 
 }
